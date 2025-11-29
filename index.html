@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Summer of Love</title>
 
-    <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (replace with your emoji sun favicon file if uploaded) -->
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
     body {
@@ -19,35 +19,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #025214; /* Forest green background */
+      background: #025214; /* Forest green */
       font-family: 'Roboto', sans-serif;
       color: #FFFFFF;
       text-align: center;
       padding: 20px;
     }
 
-    /* Outer box with the title */
+    /* Outer box with title */
     .outer-box {
       max-width: 700px;
-      padding: 20px;
+      padding: 30px;
       border-radius: 20px;
       background: #1b3b11; /* slightly lighter green */
       box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     }
 
-    .memory-title {
+    /* Today's Memory header */
+    .main-title {
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 20px;
       text-transform: uppercase;
       letter-spacing: 1px;
+    }
+
+    /* Memory title for each memory */
+    .memory-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-decoration: underline;
     }
 
     /* Inner memory box */
     .memory-box {
       font-size: 1.3rem;
       line-height: 1.6;
-      padding: 30px;
+      padding: 25px;
       border-radius: 16px;
       background: #2e6417; /* darker green */
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -56,31 +65,35 @@
 </head>
 <body>
   <div class="outer-box">
-    <div class="memory-title">today's memory</div>
-    <div class="memory-box" id="dailyMemory">
-      Loading memory...
-    </div>
+    <div class="main-title">Today's Memory</div>
+    <div class="memory-title" id="memoryTitle">Loading title...</div>
+    <div class="memory-box" id="dailyMemory">Loading memory...</div>
   </div>
 
   <script>
-    // --- Add your memories here ---
+    // --- Memories array: each memory has a title and content ---
     const memories = [
-      "When we were in Bend and you were so terrified that you hit that biker - key moment for me",
-      "Wait take one more",
-      "The first time you tried something new and felt proud.",
-      "A quiet evening, just listening to your favorite song.",
-      "Laughing until your stomach hurt over something silly."
-      // Add more memories as you like
+      { title: "Bend Adventure", content: "When we were in Bend and you were so terrified that you hit that biker - key moment for me" },
+      { title: "Take One More", content: "Wait take one more" },
+      { title: "Trying Something New", content: "The first time you tried something new and felt proud." },
+      { title: "Quiet Evening", content: "A quiet evening, just listening to your favorite song." },
+      { title: "Laughing Fit", content: "Laughing until your stomach hurt over something silly." }
+      // Add more memories here
     ];
 
-    // --- Pick memory of the day ---
+    // --- Set the start date (YYYY, M-1, D) ---
     const startDate = new Date(2025, 10, 28); // Nov 28, 2025
     const today = new Date();
 
+    // Calculate how many days have passed since startDate
     const daysSinceStart = Math.floor((today - startDate) / 86400000);
+
+    // Pick memory based on days since start date
     const index = ((daysSinceStart % memories.length) + memories.length) % memories.length;
 
-    document.getElementById("dailyMemory").textContent = memories[index];
+    // Display today's memory title and content
+    document.getElementById("memoryTitle").textContent = memories[index].title;
+    document.getElementById("dailyMemory").textContent = memories[index].content;
   </script>
 </body>
 </html>
